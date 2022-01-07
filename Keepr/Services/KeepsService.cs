@@ -44,12 +44,12 @@ namespace Keepr.Services
       return oldKeep;
     }
 
-    internal void Delete(int id, string creatorID)
+    internal void Delete(int id, string creatorId)
     {
       Keep delete = GetById(id);
-      if (delete.CreatorId != creatorID)
+      if (delete.CreatorId != creatorId)
       {
-        throw new Exception("You don't have permissiont to delete");
+        throw new Exception("You don't have permission to delete");
       }
       _repo.Delete(id);
     }
