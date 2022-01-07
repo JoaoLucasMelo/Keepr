@@ -14,10 +14,10 @@ CREATE TABLE IF NOT EXISTS keeps(
   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
   name TEXT NOT NULL COMMENT 'Keep Name',
   description TEXT NOT NULL COMMENT 'Keep Description',
-  imgUrl TEXT NOT NULL,
-  views INT NOT NULL,
-  shares INT NOT NULL,
-  keeps INT NOT NULL,
+  img TEXT NOT NULL,
+  views INT NOT NULL DEFAULT 0,
+  shares INT NOT NULL DEFAULT 0,
+  keeps INT NOT NULL DEFAULT 0,
   creatorId VARCHAR(255) NOT NULL,
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
@@ -28,13 +28,12 @@ CREATE TABLE IF NOT EXISTS vaults(
   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
   name TEXT NOT NULL COMMENT 'Vault Name',
   description TEXT NOT NULL COMMENT 'Vault Description',
-  imgUrl TEXT NOT NULL,
   isPrivate TINYINT NOT NULL,
   creatorId VARCHAR(255) NOT NULL,
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
-CREATE TABLE IF NOT EXISTS keeps(
+CREATE TABLE IF NOT EXISTS vaultkeeps(
   id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
   creatorId VARCHAR(255) NOT NULL,
   vaultId INT NOT NULL,
@@ -43,3 +42,8 @@ CREATE TABLE IF NOT EXISTS keeps(
   FOREIGN KEY (vaultId) REFERENCES vaults(id) ON DELETE CASCADE,
   FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
+
+INSERT INTO keeps
+(name, description, img, creatorId)
+VALUES
+("new keep", "description new keep", "aushuashsua", "619afdda45834453d3dac4f8");
