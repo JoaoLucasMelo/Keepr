@@ -34,14 +34,23 @@ namespace Keepr.Services
       return found;
     }
 
-    internal Keep Edit(Keep update)
+    internal Keep Edit(Keep update, string id)
     {
       Keep oldKeep = GetById(update.Id);
+      if (oldKeep.CreatorId != id)
+      {
+        throw new Exception("You are not the creator of this keep");
+      }
       oldKeep.Name = update.Name != null && update.Name.Trim().Length > 1 ? update.Name : oldKeep.Name;
       oldKeep.Description = update.Description != null && update.Description.Trim().Length > 1 ? update.Description : oldKeep.Description;
       oldKeep.Img = update.Img != null && update.Img.Trim().Length > 1 ? update.Img : oldKeep.Img;
       _repo.Edit(oldKeep);
       return oldKeep;
+    }
+
+    internal List<Keep> GetByProfileId(string id)
+    {
+      return _repo.GetByProfileId(id);
     }
 
     internal void Delete(int id, string creatorId)

@@ -32,6 +32,23 @@ namespace Keepr.Repositories
       }, new { id }).FirstOrDefault();
     }
 
+    internal Vault FindById(int id)
+    {
+      string sql = @"
+      SELECT
+      v.*,
+      a.*
+      FROM vaults v
+      JOIN accounts a ON v.creatorId = a.id
+      WHERE v.id = @id
+      ;";
+      return _db.Query<Vault, Profile, Vault>(sql, (vault, prof) =>
+      {
+        vault.Creator = prof;
+        return vault;
+      }, new { id }).FirstOrDefault();
+    }
+
     internal Vault Create(Vault newVault)
     {
       string sql = @"
@@ -52,11 +69,28 @@ namespace Keepr.Repositories
       UPDATE vaults
       SET
       name = @Name,
-      description = @description,
+      description = @Description,
       isPrivate = @IsPrivate
       WHERE id = @Id
       ;";
       _db.Execute(sql, oldVault);
+    }
+
+    internal List<Vault> GetByProfileId(string id)
+    {
+      string sql = @"
+      SELECT
+      v.*,
+      a.*
+      FROM vaults v
+      JOIN accounts a ON v.creatorId = a.id
+      WHERE v.creatorId = @id AND isPrivate = 0
+      ;";
+      return _db.Query<Vault, Profile, Vault>(sql, (vault, prof) =>
+      {
+        vault.Creator = prof;
+        return vault;
+      }, new { id }).ToList();
     }
 
     internal void Delete(int id)

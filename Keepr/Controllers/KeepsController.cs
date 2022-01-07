@@ -56,6 +56,7 @@ namespace Keepr.Controllers
       try
       {
         Keep keep = _ks.GetById(id);
+        keep.Views++;
         return Ok(keep);
       }
       catch (System.Exception e)
@@ -70,9 +71,8 @@ namespace Keepr.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        update.CreatorId = userInfo.Id;
         update.Id = id;
-        Keep updated = _ks.Edit(update);
+        Keep updated = _ks.Edit(update, userInfo.Id);
         updated.Creator = userInfo;
         return Ok(updated);
       }

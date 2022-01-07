@@ -14,9 +14,26 @@ namespace Keepr.Services
       _repo = repo;
     }
 
-    internal Vault GetById(int id)
+    internal Vault GetById(int id, string userId)
     {
-      Vault found = _repo.GetById(id);
+      Vault found = _repo.FindById(id);
+      if (found == null)
+      {
+        throw new Exception("Invalid ID");
+      }
+      if (found.CreatorId == userId)
+      {
+        return found;
+      }
+      if (found.IsPrivate == true)
+      {
+        throw new Exception("This Vault is private");
+      }
+      return _repo.GetById(id);
+    }
+    internal Vault FindById(int id)
+    {
+      Vault found = _repo.FindById(id);
       if (found == null)
       {
         throw new Exception("Invalid ID");
@@ -29,9 +46,13 @@ namespace Keepr.Services
       return _repo.Create(newVault);
     }
 
-    internal Vault Edit(Vault update)
+    internal Vault Edit(Vault update, string id)
     {
-      Vault oldVault = GetById(update.Id);
+      Vault oldVault = FindById(update.Id);
+      if (oldVault.CreatorId != id)
+      {
+        throw new Exception("You dont have permission");
+      }
       oldVault.Name = update.Name != null && update.Name.Trim().Length > 1 ? update.Name : oldVault.Name;
       oldVault.Description = update.Description != null && update.Description.Trim().Length > 1 ? update.Description : oldVault.Description;
       oldVault.IsPrivate = update.IsPrivate != null ? update.IsPrivate : oldVault.IsPrivate;
@@ -39,9 +60,14 @@ namespace Keepr.Services
       return oldVault;
     }
 
+    internal List<Vault> GetVaultsByProfileId(string id)
+    {
+      return _repo.GetByProfileId(id);
+    }
+
     internal void Delete(int id, string creatorId)
     {
-      Vault delete = GetById(id);
+      Vault delete = FindById(id);
       if (delete.CreatorId != creatorId)
       {
         throw new Exception("You don't have permission to delete");
