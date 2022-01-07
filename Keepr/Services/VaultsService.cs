@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Keepr.Models;
 using Keepr.Repositories;
 
@@ -46,6 +47,11 @@ namespace Keepr.Services
         throw new Exception("You don't have permission to delete");
       }
       _repo.Delete(id);
+    }
+
+    internal List<Vault> GetVaultsByAccount(string id)
+    {
+      return _repo.GetVaultsByAccount(id);
     }
   }
 }
