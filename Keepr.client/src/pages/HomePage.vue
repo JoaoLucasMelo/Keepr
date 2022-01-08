@@ -32,7 +32,7 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  margin-top: 12vh;
+  margin-top: 13vh;
 }
 .masonry {
   column-count: 4;

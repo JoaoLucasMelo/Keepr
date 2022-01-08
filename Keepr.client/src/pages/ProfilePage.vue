@@ -28,6 +28,14 @@
         <Vault :vault="v" />
       </div>
     </div>
+    <div class="row my-5">
+      <div class="font vaults">
+        <p>Keeps <i class="mdi plusbtn mdi-plus"></i></p>
+      </div>
+      <div class="col-2" v-for="k in activeProfKeeps" :key="k.id">
+        <Keep :keep="k" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -100,7 +108,7 @@ export default {
   margin-left: 3vw !important;
 }
 .vaults {
-  margin-top: 7vh;
+  margin-top: 8vh;
   padding-left: 5vh;
   font-size: 6vh;
 }

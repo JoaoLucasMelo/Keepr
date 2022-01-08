@@ -2,7 +2,12 @@
   <div class="NavigationBar elevation-3">
     <div class="navbar">
       <div class="ms-4">
-        <img class="img-fluid logo" src="../assets/img/K.png" alt="" />
+        <img
+          @click="homepage()"
+          class="img-fluid logo selectable"
+          src="../assets/img/K.png"
+          alt=""
+        />
       </div>
     </div>
   </div>
@@ -10,9 +15,16 @@
 
 
 <script>
+import { useRouter } from "vue-router"
 export default {
   setup() {
-    return {}
+    const router = useRouter()
+    return {
+      router,
+      homepage() {
+        router.push({ name: "Home" })
+      }
+    }
   }
 }
 </script>

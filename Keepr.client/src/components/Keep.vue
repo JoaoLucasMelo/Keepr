@@ -1,7 +1,7 @@
 <template>
   <div class="Keep">
     <div>
-      <div class="card border-0">
+      <div @click="keepModal(keep.id)" class="card border-0 selectable">
         <img class="card-img image" :src="keep.img" alt="" />
         <div
           class="
@@ -20,6 +20,7 @@
       </div>
     </div>
   </div>
+  <KeepModal :keep="keep" />
 </template>
 
 
@@ -29,6 +30,7 @@ import { logger } from "../utils/Logger"
 import { profileService } from "../services/ProfileService"
 import Pop from "../utils/Pop"
 import { useRoute, useRouter } from "vue-router"
+import { Modal } from "bootstrap"
 export default {
   props: {
     keep: { type: Object, required: true }
@@ -46,6 +48,9 @@ export default {
           logger.error(error)
           Pop.toast(error.message, 'error')
         }
+      },
+      keepModal(id) {
+        Modal.getOrCreateInstance(document.getElementById('a' + id + 'a')).toggle()
       }
     }
   }
@@ -55,7 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 .image {
-  border-radius: 7%;
+  border-radius: 50px;
 }
 .name {
   font-size: 1.7vw;
