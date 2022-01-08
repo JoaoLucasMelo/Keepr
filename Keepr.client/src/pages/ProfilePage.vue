@@ -22,9 +22,20 @@
     </div>
     <div class="row">
       <div class="font vaults">
-        <p>Vaults <i class="mdi plusbtn mdi-plus"></i></p>
+        <p>
+          Vaults
+          <i
+            data-bs-toggle="modal"
+            data-bs-target="#newVaultModal"
+            class="mdi plusbtn mdi-plus selectable"
+          ></i>
+        </p>
       </div>
-      <div class="col-2" v-for="v in activeProfVaults" :key="v.id">
+      <div
+        class="col-2 d-flex justify-content-center p-2"
+        v-for="v in activeProfVaults"
+        :key="v.id"
+      >
         <Vault :vault="v" />
       </div>
     </div>
@@ -39,6 +50,7 @@
       </div>
     </div>
   </div>
+  <NewVault />
 </template>
 
 <script>

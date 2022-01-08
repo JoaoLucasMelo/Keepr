@@ -2,7 +2,7 @@
   <div class="Vault">
     <div>
       <div @click="getByVaultKeeps(vault.id)" class="card border-0 selectable">
-        <img class="card-img image" src="" alt="" />
+        <img class="card-img image" :src="vault.imgUrl" alt="" />
         <div
           class="
             card-img-overlay
@@ -51,10 +51,13 @@ export default {
 
 <style lang="scss" scoped>
 .name {
-  font-size: 1.7vw;
-  color: rgb(0, 0, 0);
+  font-size: 1.3vw;
+  color: rgb(238, 238, 238);
 }
 .image {
   border-radius: 7%;
+  height: 20vh;
+  width: 25vh;
+  object-fit: cover;
 }
 </style>

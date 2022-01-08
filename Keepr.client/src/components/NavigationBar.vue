@@ -9,13 +9,32 @@
           alt=""
         />
       </div>
+      <div>
+        <button
+          class="
+            btn
+            selectable
+            text-success
+            lighten-30
+            text-uppercase
+            my-2 my-lg-0
+          "
+          @click="login"
+          v-if="!user.isAuthenticated"
+        >
+          Login
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 
 <script>
+import { computed } from "@vue/reactivity"
 import { useRouter } from "vue-router"
+import { AuthService } from "../services/AuthService"
+import { AppState } from "../AppState"
 export default {
   setup() {
     const router = useRouter()
@@ -23,6 +42,13 @@ export default {
       router,
       homepage() {
         router.push({ name: "Home" })
+      },
+      user: computed(() => AppState.user),
+      async login() {
+        AuthService.loginWithPopup()
+      },
+      async logout() {
+        AuthService.logout({ returnTo: window.location.origin })
       }
     }
   }

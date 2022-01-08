@@ -69,3 +69,7 @@ VALUES
       SET keeps = keeps-1
       WHERE
       id = 182;
+
+ALTER TABLE
+vaults
+ADD COLUMN imgUrl VARCHAR(5000) DEFAULT "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=449&q=80";
