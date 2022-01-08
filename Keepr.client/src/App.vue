@@ -1,9 +1,11 @@
 <template>
-  <header>
-    <NavigationBar />
+  <header class="container-fluid">
+    <NavigationBar class="row fixed-top" />
   </header>
-  <main class="row">
-    <router-view />
+  <main class="container-fluid back">
+    <div class="row">
+      <router-view />
+    </div>
   </main>
   <footer></footer>
 </template>
@@ -25,5 +27,8 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
 .font {
   font-family: "Comfortaa", cursive;
+}
+.back {
+  background-color: white;
 }
 </style>

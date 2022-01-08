@@ -1,6 +1,6 @@
 <template>
-  <div class="NavigationBar">
-    <div class="row navbar">
+  <div class="NavigationBar elevation-3">
+    <div class="navbar">
       <div class="ms-4">
         <img class="img-fluid logo" src="../assets/img/K.png" alt="" />
       </div>
