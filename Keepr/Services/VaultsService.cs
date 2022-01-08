@@ -8,10 +8,12 @@ namespace Keepr.Services
   public class VaultsService
   {
     private readonly VaultsRepository _repo;
+    private readonly KeepsService _ks;
 
-    public VaultsService(VaultsRepository repo)
+    public VaultsService(VaultsRepository repo, KeepsService ks)
     {
       _repo = repo;
+      _ks = ks;
     }
 
     internal Vault GetById(int id, string userId)
@@ -78,6 +80,16 @@ namespace Keepr.Services
     internal List<Vault> GetVaultsByAccount(string id)
     {
       return _repo.GetVaultsByAccount(id);
+    }
+
+    internal Vault GetKeepsByVaultId(int id, string userId)
+    {
+      Vault found = FindById(id);
+      if (found.CreatorId != userId && found.IsPrivate == true)
+      {
+        throw new Exception("You don't have permission");
+      }
+      return found;
     }
   }
 }

@@ -48,6 +48,15 @@ namespace Keepr.Services
       return oldKeep;
     }
 
+    internal void AddKeep(int keepId)
+    {
+      _repo.AddKeep(keepId);
+    }
+    internal void RemoveKeep(int keepId)
+    {
+      _repo.RemoveKeep(keepId);
+    }
+
     internal List<Keep> GetByProfileId(string id)
     {
       return _repo.GetByProfileId(id);
@@ -61,6 +70,11 @@ namespace Keepr.Services
         throw new Exception("You don't have permission to delete");
       }
       _repo.Delete(id);
+    }
+
+    internal List<VaultKeepViewModal> GetKeepsByVaultId(int id)
+    {
+      return _repo.GetKeepsByVaultId(id);
     }
   }
 }

@@ -47,3 +47,25 @@ INSERT INTO keeps
 (name, description, img, creatorId)
 VALUES
 ("new keep", "description new keep", "aushuashsua", "619afdda45834453d3dac4f8");
+
+
+
+      SELECT
+      k.*,
+      vk.id AS VaultKeepId,
+      a.*
+      FROM keeps k
+      JOIN accounts a ON k.creatorId = a.id
+      JOIN vaultkeeps vk ON vk.vaultId = 166
+      WHERE vk.vaultId = 166;
+
+
+      UPDATE keeps
+      SET keeps = keeps+1
+      WHERE
+      id = 180;
+
+      UPDATE keeps
+      SET keeps = keeps-1
+      WHERE
+      id = 182;

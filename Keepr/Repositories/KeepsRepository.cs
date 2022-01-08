@@ -48,6 +48,16 @@ namespace Keepr.Repositories
       }, new { id }).FirstOrDefault();
     }
 
+    internal void AddKeep(int id)
+    {
+      string sql = @"
+      UPDATE keeps
+      SET keeps = keeps+1
+      WHERE
+      id = @id;
+    ;";
+      _db.Execute(sql, new { id });
+    }
     internal Keep Create(Keep newKeep)
     {
       string sql = @"
@@ -60,6 +70,17 @@ namespace Keepr.Repositories
       int id = _db.ExecuteScalar<int>(sql, newKeep);
       newKeep.Id = id;
       return newKeep;
+    }
+
+    internal void RemoveKeep(int id)
+    {
+      string sql = @"
+      UPDATE keeps
+      SET keeps = keeps-1
+      WHERE
+      id = @id;
+    ;";
+      _db.Execute(sql, new { id });
     }
 
     internal List<Keep> GetByProfileId(string id)
@@ -76,6 +97,25 @@ namespace Keepr.Repositories
       {
         keep.Creator = prof;
         return keep;
+      }, new { id }).ToList();
+    }
+
+    internal List<VaultKeepViewModal> GetKeepsByVaultId(int id)
+    {
+      string sql = @"
+      SELECT
+      k.*,
+      vk.id AS VaultKeepId,
+      a.*
+      FROM keeps k
+      JOIN accounts a ON k.creatorId = a.id
+      JOIN vaultkeeps vk ON vk.vaultId = @id
+      WHERE vk.vaultId = @id
+      ;";
+      return _db.Query<VaultKeepViewModal, Profile, VaultKeepViewModal>(sql, (vkvm, prof) =>
+      {
+        vkvm.Creator = prof;
+        return vkvm;
       }, new { id }).ToList();
     }
 
