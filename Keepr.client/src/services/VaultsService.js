@@ -11,6 +11,7 @@ async getVault(id){
 async createVault(newVault){
   const res = await api.post("api/vaults", newVault)
   logger.log('NEW VAULT',res.data)
+  AppState.activeProfVaults.push(res.data)
 }
 }
 export const vaultsService = new VaultsService()

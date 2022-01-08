@@ -57,7 +57,7 @@ export default {
 .image {
   border-radius: 7%;
   height: 20vh;
-  width: 25vh;
+  width: 12vw;
   object-fit: cover;
 }
 </style>

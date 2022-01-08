@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS vaults(
   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
   name TEXT NOT NULL COMMENT 'Vault Name',
   description TEXT NOT NULL COMMENT 'Vault Description',
-  isPrivate TINYINT NOT NULL,
+  isPrivate TINYINT NOT NULL DEFAULT 0,
   creatorId VARCHAR(255) NOT NULL,
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';

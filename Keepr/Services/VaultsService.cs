@@ -45,6 +45,8 @@ namespace Keepr.Services
 
     internal Vault Create(Vault newVault)
     {
+      newVault.IsPrivate = newVault.IsPrivate != null ? newVault.IsPrivate = true : newVault.IsPrivate = false;
+      newVault.ImgUrl = newVault.ImgUrl != null ? newVault.ImgUrl = newVault.ImgUrl : newVault.ImgUrl = "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=449&q=80";
       return _repo.Create(newVault);
     }
 

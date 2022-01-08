@@ -39,9 +39,16 @@
         <Vault :vault="v" />
       </div>
     </div>
-    <div class="row my-5">
+    <div class="row mb-5">
       <div class="font vaults">
-        <p>Keeps <i class="mdi plusbtn mdi-plus"></i></p>
+        <p>
+          Keeps
+          <i
+            data-bs-toggle="modal"
+            data-bs-target="#newKeepModal"
+            class="mdi selectable plusbtn mdi-plus"
+          ></i>
+        </p>
       </div>
       <div class="masonry">
         <div class="item" v-for="k in activeProfKeeps" :key="k.id">
@@ -51,6 +58,7 @@
     </div>
   </div>
   <NewVault />
+  <NewKeep />
 </template>
 
 <script>
