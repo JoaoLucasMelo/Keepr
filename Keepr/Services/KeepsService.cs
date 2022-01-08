@@ -56,7 +56,10 @@ namespace Keepr.Services
     {
       _repo.RemoveKeep(keepId);
     }
-
+    internal void AddView(int keepId)
+    {
+      _repo.AddView(keepId);
+    }
     internal List<Keep> GetByProfileId(string id)
     {
       return _repo.GetByProfileId(id);

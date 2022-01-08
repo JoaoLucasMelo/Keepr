@@ -32,8 +32,10 @@
       <div class="font vaults">
         <p>Keeps <i class="mdi plusbtn mdi-plus"></i></p>
       </div>
-      <div class="col-2" v-for="k in activeProfKeeps" :key="k.id">
-        <Keep :keep="k" />
+      <div class="masonry">
+        <div class="item" v-for="k in activeProfKeeps" :key="k.id">
+          <Keep :keep="k" />
+        </div>
       </div>
     </div>
   </div>
@@ -114,5 +116,15 @@ export default {
 }
 .plusbtn {
   color: #e60023;
+}
+.masonry {
+  column-count: 4;
+  column-gap: 2em;
+}
+
+.item {
+  display: inline-block;
+  margin: 0 0 1em;
+  width: 100%;
 }
 </style>

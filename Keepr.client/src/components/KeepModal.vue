@@ -10,8 +10,8 @@
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-body row modalcard m-0">
-            <div class="col-5 backpic p-0"></div>
-            <div class="col-7">
+            <div class="col-6 backpic p-0"></div>
+            <div class="col-6">
               <div class="text-end">
                 <button
                   type="button"
@@ -26,17 +26,17 @@
                     <div class="font d-flex justify-content-center">
                       <p class="d-flex align-items-center f-14 me-4">
                         <i
-                          :title="'Viewed ' + keep.views + ' times'"
+                          :title="'Viewed ' + activeKeep.views + ' times'"
                           class="mdi mdi-24px mdi-eye-outline color me-2"
                         ></i>
-                        {{ keep.views }}
+                        {{ activeKeep.views }}
                       </p>
                       <p class="d-flex align-items-center f-14">
                         <i
-                          :title="'Kept ' + keep.keeps + ' times'"
+                          :title="'Kept ' + activeKeep.keeps + ' times'"
                           class="mdi mdi-24px mdi-alpha-k-circle color me-2"
                         ></i>
-                        {{ keep.keeps }}
+                        {{ activeKeep.keeps }}
                       </p>
                     </div>
                   </div>
@@ -56,11 +56,27 @@
                           Add to Vault
                         </button>
                       </div>
-                      <div class="col-4 d-flex justify-content-center">
+                      <div class="col-2 d-flex justify-content-center">
                         <i class="mdi mdi-24px mdi-trash-can"></i>
                       </div>
-                      <div class="col-4 d-flex justify-content-center">
-                        <i class="mdi mdi-24px mdi-trash-can"></i>
+                      <div
+                        @click="profile(keep.creatorId)"
+                        class="
+                          selectable
+                          col-6
+                          d-flex
+                          justify-content-center
+                          align-items-center
+                        "
+                      >
+                        <p class="font profilename m-0 me-3 f-14">
+                          {{ keep.creator.name }}
+                        </p>
+                        <img
+                          class="profpic"
+                          :src="keep.creator.picture"
+                          alt=""
+                        />
                       </div>
                     </div>
                   </div>
@@ -77,13 +93,34 @@
 
 <script>
 import { computed } from "@vue/reactivity"
+import { profileService } from "../services/ProfileService"
+import { logger } from "../utils/Logger"
+import Pop from "../utils/Pop"
+import { useRouter } from "vue-router"
+import { Modal } from "bootstrap"
+import { onMounted } from "@vue/runtime-core"
+import { keepsService } from "../services/KeepsService"
+import { AppState } from "../AppState"
 export default {
   props: {
     keep: { type: Object, required: true }
   },
   setup(props) {
+    const router = useRouter()
     return {
-      imgUrl: computed(() => `url(${props.keep.img})`)
+      router,
+      imgUrl: computed(() => `url(${props.keep.img})`),
+      activeKeep: computed(() => AppState.activeKeep),
+      async profile(id) {
+        try {
+          await profileService.getProfile(id)
+          router.push({ name: "Profile", params: { id: id } })
+          Modal.getOrCreateInstance(document.getElementById('a' + props.keep.id + 'a')).hide()
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      },
     }
   }
 }
@@ -139,5 +176,13 @@ export default {
 }
 .heigth {
   height: 63vh;
+}
+.profpic {
+  height: 2vw;
+  width: 2vw;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profilename {
 }
 </style>

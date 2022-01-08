@@ -61,9 +61,9 @@ VALUES
 
 
       UPDATE keeps
-      SET keeps = keeps+1
+      SET keeps = keeps+ 1
       WHERE
-      id = 180;
+      id = 217;
 
       UPDATE keeps
       SET keeps = keeps-1

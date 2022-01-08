@@ -72,6 +72,17 @@ namespace Keepr.Repositories
       return newKeep;
     }
 
+    internal void AddView(int id)
+    {
+      string sql = @"
+      UPDATE keeps
+      SET views = views+1
+      WHERE
+      id = @id;
+    ;";
+      _db.Execute(sql, new { id });
+    }
+
     internal void RemoveKeep(int id)
     {
       string sql = @"

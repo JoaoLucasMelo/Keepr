@@ -31,6 +31,7 @@ import { profileService } from "../services/ProfileService"
 import Pop from "../utils/Pop"
 import { useRoute, useRouter } from "vue-router"
 import { Modal } from "bootstrap"
+import { keepsService } from "../services/KeepsService"
 export default {
   props: {
     keep: { type: Object, required: true }
@@ -49,8 +50,14 @@ export default {
           Pop.toast(error.message, 'error')
         }
       },
-      keepModal(id) {
-        Modal.getOrCreateInstance(document.getElementById('a' + id + 'a')).toggle()
+      async keepModal(id) {
+        try {
+          await keepsService.getKeepById(props.keep.id)
+          Modal.getOrCreateInstance(document.getElementById('a' + id + 'a')).toggle()
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
       }
     }
   }

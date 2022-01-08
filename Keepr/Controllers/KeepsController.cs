@@ -56,6 +56,7 @@ namespace Keepr.Controllers
       try
       {
         Keep keep = _ks.GetById(id);
+        _ks.AddView(id);
         keep.Views++;
         return Ok(keep);
       }
