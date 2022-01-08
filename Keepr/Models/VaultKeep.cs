@@ -8,10 +8,4 @@ namespace Keepr.Models
     public int KeepId { get; set; }
   }
 
-  public class VaultKeepViewModal : VaultKeep
-  {
-    public Profile Creator { get; set; }
-    public Vault Vault { get; set; }
-    public Keep Keep { get; set; }
-  }
 }
