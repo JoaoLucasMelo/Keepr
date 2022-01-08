@@ -14,13 +14,24 @@ async getByVaultKeeps(vaultId){
 async getKeepById(id){
   const res = await api.get("api/keeps/" + id)
   AppState.activeKeep = res.data
-  logger.log('GET BY ID', res.data)
 }
 async createKeep(newKeep){
   const res = await api.post("api/keeps", newKeep)
-  logger.log('NEW KEEP',res.data)
   AppState.activeProfKeeps.push(res.data)
+}
+async removeKeep(id){
+  const res = await api.delete("api/keeps/" + id)
+  let newKeeps = AppState.keeps?.filter( k => k.id !== id)
+  AppState.keeps = newKeeps
+  let newActProfKeeps = AppState.activeProfKeeps?.filter( k => k.id !== id)
+  AppState.activeProfKeeps = newActProfKeeps
 
+  let newActvaultKeeps = AppState.activeVaultKeeps?.filter( k => k.id !== id)
+  AppState.activeVaultKeeps = newActvaultKeeps
+}
+async addKeepToVault(keepId, vaultId){
+  const res = await api.post("api/vaultkeeps", { keepId: keepId, vaultId: vaultId})
+  logger.log(res.data)
 }
 }
 export const keepsService = new KeepsService()

@@ -13,5 +13,12 @@ async createVault(newVault){
   logger.log('NEW VAULT',res.data)
   AppState.activeProfVaults.push(res.data)
 }
+
+async removeVault(id){
+  const res = await api.delete("api/vaults/" + id)
+  logger.log(res.data)
+  let newVaults = AppState.activeProfVaults?.filter( v => v.id !== id)
+  AppState.activeProfVaults = newVaults
+}
 }
 export const vaultsService = new VaultsService()

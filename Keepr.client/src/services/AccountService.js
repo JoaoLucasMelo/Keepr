@@ -15,6 +15,10 @@ class AccountService {
     const res = await api.get("account/vaults")
     AppState.activeProfVaults = res.data
   }
+  async getVaultsThisAccount(){
+  const res = await api.get("account/vaults")
+  AppState.myVaults = res.data
+}
 }
 
 export const accountService = new AccountService()

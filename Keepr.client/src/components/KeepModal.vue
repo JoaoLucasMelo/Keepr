@@ -52,12 +52,36 @@
                   <div class="row">
                     <div class="mt-3 d-flex">
                       <div class="col-4 d-flex justify-content-center">
-                        <button class="btn btn-outline-secondary">
-                          Add to Vault
-                        </button>
+                        <div class="dropdown">
+                          <a
+                            class="btn btn-secondary dropdown-toggle"
+                            role="button"
+                            id="dropdownMenuLink"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            Dropdown link
+                          </a>
+                          <ul
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuLink"
+                          >
+                            <li v-for="v in myVaults" :key="v.id">
+                              <a
+                                @click="addKeepToVault(keep.id, v.id)"
+                                class="dropdown-item"
+                                >{{ v.name }}</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                       <div class="col-2 d-flex justify-content-center">
-                        <i class="mdi mdi-24px mdi-trash-can"></i>
+                        <i
+                          v-if="account.id === keep.creatorId"
+                          @click="removeKeep(keep.id)"
+                          class="mdi mdi-24px mdi-trash-can selectable"
+                        ></i>
                       </div>
                       <div
                         @click="profile(keep.creatorId)"
@@ -111,6 +135,8 @@ export default {
       router,
       imgUrl: computed(() => `url(${props.keep.img})`),
       activeKeep: computed(() => AppState.activeKeep),
+      account: computed(() => AppState.account),
+      myVaults: computed(() => AppState.myVaults),
       async profile(id) {
         try {
           await profileService.getProfile(id)
@@ -121,6 +147,27 @@ export default {
           Pop.toast(error.message, 'error')
         }
       },
+      async removeKeep(id) {
+        try {
+          if (await Pop.confirm()) {
+            Modal.getOrCreateInstance(document.getElementById('a' + props.keep.id + 'a')).toggle()
+            await keepsService.removeKeep(id)
+            Pop.toast('Keep deleted!', 'success')
+          }
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      },
+      async addKeepToVault(keepId, vaultId) {
+        try {
+          await keepsService.addKeepToVault(keepId, vaultId)
+          Pop.toast('Keep added', 'success')
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      }
     }
   }
 }

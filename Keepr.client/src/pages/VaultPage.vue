@@ -8,7 +8,13 @@
           <p class="font keeps m-0">Keeps: {{ keeps.length }}</p>
         </div>
         <div class="align-self-center">
-          <button class="btn btn-outline-secondary">Delete Vault</button>
+          <button
+            v-if="account.id === vault.creatorId"
+            @click="removeVault(vault.id, vault.creatorId)"
+            class="btn btn-outline-secondary"
+          >
+            Delete Vault
+          </button>
         </div>
       </div>
     </div>
@@ -27,12 +33,13 @@ import { keepsService } from "../services/KeepsService"
 import { vaultsService } from "../services/VaultsService"
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
-import { useRoute } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import { AppState } from "../AppState"
 export default {
   name: 'Vault',
   setup() {
     const route = useRoute()
+    const router = useRouter()
     onMounted(async () => {
       try {
         await keepsService.getByVaultKeeps(route.params.id)
@@ -50,9 +57,22 @@ export default {
       }
     })
     return {
+      router,
       keeps: computed(() => AppState.activeVaultKeeps),
       vault: computed(() => AppState.activeVault),
-
+      account: computed(() => AppState.account),
+      async removeVault(id, creatorId) {
+        try {
+          if (await Pop.confirm()) {
+            router.push({ name: 'Profile', params: { id: creatorId } })
+            await vaultsService.removeVault(id)
+            Pop.toast('Vault deleted!', 'success')
+          }
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      }
     }
   }
 }

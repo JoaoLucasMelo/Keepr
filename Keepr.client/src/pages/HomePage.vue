@@ -12,6 +12,7 @@ import { logger } from "../utils/Logger"
 import { keepsService } from "../services/KeepsService"
 import Pop from "../utils/Pop"
 import { AppState } from "../AppState"
+import { accountService } from "../services/AccountService"
 export default {
   name: 'Home',
   setup() {
@@ -25,6 +26,7 @@ export default {
     })
     return {
       keeps: computed(() => AppState.keeps),
+      user: computed(() => AppState.user),
     }
   }
 }
