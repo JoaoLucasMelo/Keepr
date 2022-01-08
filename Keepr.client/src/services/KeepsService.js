@@ -16,5 +16,11 @@ async getKeepById(id){
   AppState.activeKeep = res.data
   logger.log('GET BY ID', res.data)
 }
+async createKeep(newKeep){
+  const res = await api.post("api/keeps", newKeep)
+  logger.log('NEW KEEP',res.data)
+  AppState.activeProfKeeps.push(res.data)
+
+}
 }
 export const keepsService = new KeepsService()
