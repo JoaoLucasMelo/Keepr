@@ -1,7 +1,7 @@
 <template>
   <div class="KeepModal">
     <div
-      class="modal fade"
+      class="modal blur fade"
       :id="'a' + keep.id + 'a'"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
@@ -344,6 +344,9 @@ export default {
 }
 .deletebtn:hover {
   color: #e60023;
+}
+.blur {
+  backdrop-filter: blur(5px) !important;
 }
 @media only screen and (max-width: 500px) {
   .backpic {
