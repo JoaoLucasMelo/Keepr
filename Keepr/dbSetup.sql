@@ -73,3 +73,15 @@ VALUES
 ALTER TABLE
 vaults
 ADD COLUMN imgUrl VARCHAR(5000) DEFAULT "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=449&q=80";
+
+
+      SELECT
+      k.*,
+      k.id AS keepId,
+      vk.id AS VaultKeepId,
+      a.*
+      FROM keeps k
+      JOIN accounts a ON k.creatorId = a.id
+      JOIN vaultkeeps vk ON vk.vaultId = 9 AND vk.keepId = k.id
+      WHERE vk.vaultId = 9
+      ;

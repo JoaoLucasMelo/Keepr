@@ -5,7 +5,7 @@
         <div>
           <p class="font vaultname m-0">{{ vault.name }}</p>
           <p class="font vaultdescription m-0">{{ vault.description }}</p>
-          <p class="font keeps m-0">Keeps: {{ keeps.length }}</p>
+          <p class="font keeps m-0">Keeps: {{ vaultkeeps.length }}</p>
         </div>
         <div class="align-self-center">
           <button
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="masonry mt-5">
-      <div class="item" v-for="k in keeps" :key="k.id">
+      <div class="item" v-for="k in vaultkeeps" :key="k.id">
         <Keep :keep="k" />
       </div>
     </div>
@@ -58,7 +58,7 @@ export default {
     })
     return {
       router,
-      keeps: computed(() => AppState.activeVaultKeeps),
+      vaultkeeps: computed(() => AppState.activeVaultKeeps),
       vault: computed(() => AppState.activeVault),
       account: computed(() => AppState.account),
       async removeVault(id, creatorId) {

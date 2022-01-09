@@ -27,7 +27,7 @@
                   class="form-control"
                   id="KeepName"
                   placeholder="Keep Name..."
-                  maxlength="20"
+                  maxlength="15"
                   required
                   v-model="newKeep.name"
                 />

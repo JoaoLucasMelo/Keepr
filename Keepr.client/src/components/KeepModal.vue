@@ -161,6 +161,7 @@ export default {
       },
       async addKeepToVault(keepId, vaultId) {
         try {
+          logger.log(keepId, vaultId)
           await keepsService.addKeepToVault(keepId, vaultId)
           Pop.toast('Keep added', 'success')
         } catch (error) {
