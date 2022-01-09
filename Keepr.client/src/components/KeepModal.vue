@@ -186,7 +186,7 @@ export default {
           logger.log(keepId, vaultId)
           await keepsService.addKeepToVault(keepId, vaultId)
           await keepsService.getVaultsAlreadyIn(keepId)
-          await keepsService.getKeepById(keepId)
+          AppState.activeKeep.keeps++
           Pop.toast('Keep added', 'success')
         } catch (error) {
           logger.error(error)
