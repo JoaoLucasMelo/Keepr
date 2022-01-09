@@ -1,6 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using CodeWorks.Auth0Provider;
 using Keepr.Models;
 using Keepr.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Keepr.Controllers
@@ -59,6 +63,21 @@ namespace Keepr.Controllers
       }
     }
 
+    [HttpPut]
+    [Authorize]
+    public async Task<ActionResult<Profile>> Edit([FromBody] Profile editData)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Profile newAccount = _ps.Edit(editData, userInfo.Id);
+        return Ok(newAccount);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
 
 
   }

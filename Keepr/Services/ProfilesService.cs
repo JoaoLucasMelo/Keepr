@@ -16,5 +16,13 @@ namespace Keepr.Services
     {
       return _repo.GetById(id);
     }
+
+    internal Profile Edit(Profile editData, string id)
+    {
+      Profile original = GetById(id);
+      original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
+      original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
+      return _repo.Edit(original);
+    }
   }
 }

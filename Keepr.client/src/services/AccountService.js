@@ -20,10 +20,10 @@ class AccountService {
   AppState.myVaults = res.data
 }
 
-async editAccount(data){
+async editProfile(data){
   const res = await api.put('/account', data)
-  logger.log(res.data)
   AppState.account = res.data
+  AppState.activeProfile = res.data
 }
 }
 

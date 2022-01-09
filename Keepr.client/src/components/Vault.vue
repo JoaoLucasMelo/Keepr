@@ -1,7 +1,11 @@
 <template>
   <div class="Vault">
     <div>
-      <div @click="getByVaultKeeps(vault.id)" class="card border-0 selectable">
+      <div
+        :title="vault.name"
+        @click="getByVaultKeeps(vault.id)"
+        class="card border-0 selectable"
+      >
         <img class="card-img image" :src="vault.imgUrl" alt="" />
         <div
           class="

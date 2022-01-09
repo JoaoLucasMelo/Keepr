@@ -61,6 +61,7 @@ namespace Keepr.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+
         Account newAccount = _accountService.Edit(editData, userInfo.Email);
         return Ok(newAccount);
       }

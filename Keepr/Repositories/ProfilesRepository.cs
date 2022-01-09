@@ -20,5 +20,19 @@ namespace Keepr.Repositories
       ;";
       return _db.QueryFirstOrDefault<Profile>(sql, new { id });
     }
+
+    internal Profile Edit(Profile original)
+    {
+      string sql = @"
+            UPDATE accounts
+            SET 
+              name = @Name,
+              picture = @Picture
+            WHERE id = @Id;";
+      _db.Execute(sql, original);
+      return original;
+    }
+
+
   }
 }
