@@ -54,13 +54,13 @@
                       <div class="col-4 d-flex justify-content-center">
                         <div class="dropdown">
                           <a
-                            class="btn btn-secondary dropdown-toggle"
+                            class="btn btn-outline-danger dropdown-toggle"
                             role="button"
                             id="dropdownMenuLink"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                           >
-                            Dropdown link
+                            ADD TO VAULT
                           </a>
                           <ul
                             class="dropdown-menu"

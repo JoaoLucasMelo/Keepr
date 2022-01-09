@@ -46,12 +46,12 @@ export default {
   border-radius: 10px;
 }
 .grow {
-  box-shadow: 4px 2px 2px rgb(104, 104, 104);
+  // box-shadow: 4px 2px 2px rgb(104, 104, 104);
   transition: all 0.2s ease-in-out;
 }
 .grow:hover {
   transform: scale(1.01);
-  box-shadow: 6px 4px 4px rgb(104, 104, 104);
+  box-shadow: 3px 5px 5px rgb(117, 117, 117);
 }
 .btn:focus {
   outline: none;

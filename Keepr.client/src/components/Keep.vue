@@ -1,6 +1,6 @@
 <template>
   <div class="Keep">
-    <div>
+    <div :title="keep.name">
       <div
         @click="keepModal(keep.id)"
         class="card carddiv border-0 grow selectable"
@@ -25,7 +25,10 @@
             </button>
           </div>
           <div v-else></div>
-          <div class="d-flex w-100 justify-content-between">
+          <div
+            class="d-flex w-100 justify-content-between"
+            :title="'Got to ' + keep.creator.name + `'s Profile`"
+          >
             <p class="card-text name font m-0">{{ keep.name }}</p>
             <button @click.stop="profile(keep.creatorId)" class="btn p-0">
               <img class="profpic" :src="keep.creator.picture" alt="" />

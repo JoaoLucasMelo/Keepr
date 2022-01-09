@@ -3,8 +3,9 @@
     <div class="navbar p-0 d-flex justify-content-between">
       <div>
         <img
+          title="Home"
           @click="homepage()"
-          class="img-fluid logo selectable"
+          class="img-fluid logo action"
           src="../assets/img/K.png"
           alt=""
         />
@@ -35,7 +36,11 @@
         </div>
       </form>
       <div v-if="user.isAuthenticated">
-        <div class="d-flex align-items-center selectable" @click="profile()">
+        <div
+          class="d-flex align-items-center action"
+          title="Go to Profile"
+          @click="profile()"
+        >
           <div class="me-3">
             <p class="font m-0">{{ account.name }}</p>
           </div>

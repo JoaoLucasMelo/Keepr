@@ -1,6 +1,6 @@
 <template>
   <div class="home masonry">
-    <div class="item" v-for="k in keeps" :key="k.id">
+    <div class="item pt-1" v-for="k in keeps" :key="k.id">
       <Keep :keep="k" />
     </div>
   </div>
