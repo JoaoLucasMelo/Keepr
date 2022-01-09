@@ -1,7 +1,80 @@
 <template>
   <div class="VaultPage">
     <div class="row justify-content-center">
-      <div class="col-10 d-flex justify-content-between">
+      <div
+        class="col-10 d-flex justify-content-between"
+        v-if="account.id === vault.creatorId && edit === false"
+      >
+        <div>
+          <div class="d-flex align-">
+            <p class="font vaultname m-0">{{ vault.name }}</p>
+            <i
+              @click="edit = !edit"
+              title="Edit Profile"
+              class="
+                mdi
+                pencil
+                mdi-24px mdi-pencil
+                ms-3
+                text-danger
+                pb-2
+                action
+              "
+            ></i>
+          </div>
+          <p class="font vaultdescription m-0">{{ vault.description }}</p>
+          <p class="font keeps m-0">Keeps: {{ vaultkeeps.length }}</p>
+        </div>
+        <div class="align-self-center">
+          <button
+            title="Delete this Vault"
+            v-if="account.id === vault.creatorId"
+            @click="removeVault(vault.id, vault.creatorId)"
+            class="btn font deletevault border border-2 p-2"
+          >
+            Delete Vault
+          </button>
+        </div>
+      </div>
+      <div
+        class="col-10 d-flex justify-content-between mt-4"
+        v-if="account.id === vault.creatorId && edit === true"
+      >
+        <form class="inputs font" @submit.prevent="editVault">
+          <div class="mb-3">
+            <label for="VaultName" class="form-label">Vault Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="VaultName"
+              placeholder="Vault Name..."
+              maxlength="15"
+              v-model="editable.name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="VaultDescription" class="form-label"
+              >Vault Description:</label
+            >
+            <textarea
+              type="text"
+              class="form-control"
+              id="VaultDescription"
+              placeholder="Vault Description..."
+              maxlength="200"
+              v-model="editable.description"
+            />
+          </div>
+          <div class="text-center mt-2">
+            <button @click="edit = !edit" class="btn me-2">Cancel</button>
+            <button type="submit" class="btn btn-outline-danger">Save</button>
+          </div>
+        </form>
+      </div>
+      <div
+        class="col-10 d-flex justify-content-between"
+        v-if="account.id !== vault.creatorId"
+      >
         <div>
           <p class="font vaultname m-0">{{ vault.name }}</p>
           <p class="font vaultdescription m-0">{{ vault.description }}</p>
@@ -29,7 +102,7 @@
 
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core"
+import { computed, onMounted, ref } from "@vue/runtime-core"
 import { keepsService } from "../services/KeepsService"
 import { vaultsService } from "../services/VaultsService"
 import { logger } from "../utils/Logger"
@@ -58,7 +131,11 @@ export default {
         Pop.toast(error.message, 'error')
       }
     })
+    let edit = ref(false)
+    let editable = ref({})
     return {
+      edit,
+      editable,
       router,
       vaultkeeps: computed(() => AppState.activeVaultKeeps),
       vault: computed(() => AppState.activeVault),
@@ -74,7 +151,17 @@ export default {
           logger.error(error)
           Pop.toast(error.message, 'error')
         }
-      }
+      },
+      async editVault() {
+        try {
+          await vaultsService.editVault(editable.value)
+          edit.value = !edit.value
+          editable.value = {}
+        } catch (error) {
+          logger.log(error)
+          Pop.toast(error.message, 'error')
+        }
+      },
     }
   }
 }
@@ -88,6 +175,9 @@ export default {
 .vaultname {
   margin-top: 5vh !important;
   font-size: 6vh;
+}
+.pencil {
+  margin-top: 5vh !important;
 }
 .vaultdescription {
   font-size: 3vh;
@@ -116,5 +206,8 @@ export default {
 .deletevault:hover {
   background-color: #e60023;
   color: rgb(238, 238, 238);
+}
+.inputs {
+  width: 35vw;
 }
 </style>

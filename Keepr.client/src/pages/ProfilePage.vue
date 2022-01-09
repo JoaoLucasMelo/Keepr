@@ -36,22 +36,22 @@
         >
           <form class="inputs font" @submit.prevent="editProfile">
             <div class="mb-3">
-              <label for="KeepName" class="form-label">Name:</label>
+              <label for="ProfileName" class="form-label">Name:</label>
               <input
                 type="text"
                 class="form-control"
-                id="KeepName"
+                id="ProfileName"
                 placeholder="Name..."
                 maxlength="15"
                 v-model="editable.name"
               />
             </div>
             <div class="mb-3">
-              <label for="KeepName" class="form-label">ImgUrl:</label>
+              <label for="ProfileName" class="form-label">ImgUrl:</label>
               <input
                 type="url"
                 class="form-control"
-                id="KeepName"
+                id="ProfileName"
                 placeholder="ImgUrl..."
                 v-model="editable.picture"
               />
