@@ -40,7 +40,75 @@
                       </p>
                     </div>
                   </div>
-                  <div class="row text-center d-flex justify-content-center">
+                  <div
+                    class="row text-center d-flex justify-content-center"
+                    v-if="account.id === keep.creatorId && edit === false"
+                  >
+                    <div
+                      class="d-flex align-items-center justify-content-center"
+                    >
+                      <p class="keepname font m-0">{{ keep.name }}</p>
+                      <i
+                        @click="edit = !edit"
+                        title="Edit Keep"
+                        class="
+                          mdi mdi-24px mdi-pencil
+                          ms-3
+                          text-danger
+                          pb-2
+                          action
+                        "
+                      ></i>
+                    </div>
+                    <p class="keepdesc font text-wrap">
+                      {{ keep.description }}
+                    </p>
+                  </div>
+                  <div
+                    class="row font d-flex justify-content-center"
+                    v-if="account.id === keep.creatorId && edit === true"
+                  >
+                    <form>
+                      <div class="mb-3">
+                        <label for="KeepName" class="form-label"
+                          >Keep Name:</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="KeepName"
+                          placeholder="Keep Name..."
+                          maxlength="15"
+                          required
+                          v-model="editable.name"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="KeepDescription" class="form-label"
+                          >Description:</label
+                        >
+                        <textarea
+                          type="text"
+                          class="form-control"
+                          id="KeepDescription"
+                          placeholder="Description..."
+                          required
+                          maxlength="200"
+                          v-model="editable.description"
+                        />
+                      </div>
+                      <div class="text-center mt-3">
+                        <button @click="edit = !edit" class="btn me-2">
+                          Cancel
+                        </button>
+                        <button class="btn btn-outline-danger">Save</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div
+                    class="row text-center d-flex justify-content-center"
+                    v-if="account.id !== keep.creatorId"
+                  >
                     <p class="keepname font m-0">{{ keep.name }}</p>
                     <p class="keepdesc font text-wrap">
                       {{ keep.description }}
@@ -138,7 +206,7 @@
 
 
 <script>
-import { computed } from "@vue/reactivity"
+import { computed, ref } from "@vue/reactivity"
 import { profileService } from "../services/ProfileService"
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
@@ -153,7 +221,11 @@ export default {
   },
   setup(props) {
     const router = useRouter()
+    let edit = ref(false)
+    let editable = ref({})
     return {
+      edit,
+      editable,
       router,
       imgUrl: computed(() => `url(${props.keep.img})`),
       activeKeep: computed(() => AppState.activeKeep),
@@ -193,7 +265,17 @@ export default {
           logger.error(error)
           Pop.toast(error.message, 'error')
         }
-      }
+      },
+      async editKeep() {
+        try {
+          await keepsService.editKeep(editable.value)
+          edit.value = !edit.value
+          editable.value = {}
+        } catch (error) {
+          logger.log(error)
+          Pop.toast(error.message, 'error')
+        }
+      },
     }
   }
 }
