@@ -12,6 +12,7 @@ async createVault(newVault){
   const res = await api.post("api/vaults", newVault)
   logger.log('NEW VAULT',res.data)
   AppState.activeProfVaults.push(res.data)
+  AppState.myVaults.push(res.data)
 }
 
 async removeVault(id){

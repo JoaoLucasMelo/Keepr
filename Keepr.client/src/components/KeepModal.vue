@@ -52,7 +52,7 @@
                   <div class="row">
                     <div class="mt-3 d-flex">
                       <div class="col-4 d-flex justify-content-center">
-                        <div class="dropdown">
+                        <div class="dropdown font" v-if="user.isAuthenticated">
                           <a
                             class="btn btn-outline-danger dropdown-toggle"
                             role="button"
@@ -60,16 +60,29 @@
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                           >
-                            ADD TO VAULT
+                            Add to Vault
                           </a>
                           <ul
                             class="dropdown-menu"
                             aria-labelledby="dropdownMenuLink"
                           >
-                            <li v-for="v in myVaults" :key="v.id">
+                            <li
+                              v-for="v in myVaults"
+                              :key="v.id"
+                              :class="
+                                vaultsAlreadyIn.find((vi) => vi.id === v.id)
+                                  ? 'disabled'
+                                  : ''
+                              "
+                            >
                               <a
+                                :title="
+                                  vaultsAlreadyIn.find((vi) => vi.id === v.id)
+                                    ? 'Already in this Vault'
+                                    : ''
+                                "
                                 @click="addKeepToVault(keep.id, v.id)"
-                                class="dropdown-item"
+                                class="dropdown-item action"
                                 >{{ v.name }}</a
                               >
                             </li>
@@ -78,15 +91,22 @@
                       </div>
                       <div class="col-2 d-flex justify-content-center">
                         <i
-                          v-if="account.id === keep.creatorId"
+                          v-if="account?.id === keep.creatorId"
                           @click="removeKeep(keep.id)"
-                          class="mdi mdi-24px mdi-trash-can selectable"
+                          title="Remove this Keep"
+                          class="
+                            mdi mdi-24px mdi-trash-can
+                            action
+                            deletebtn
+                            ms-5
+                          "
                         ></i>
                       </div>
                       <div
+                        :title="'Go to ' + keep.creator.name + `'s Profile`"
                         @click="profile(keep.creatorId)"
                         class="
-                          selectable
+                          action
                           col-6
                           d-flex
                           justify-content-center
@@ -136,7 +156,9 @@ export default {
       imgUrl: computed(() => `url(${props.keep.img})`),
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
       myVaults: computed(() => AppState.myVaults),
+      vaultsAlreadyIn: computed(() => AppState.vaultsAlreadyIn),
       async profile(id) {
         try {
           await profileService.getProfile(id)
@@ -163,6 +185,8 @@ export default {
         try {
           logger.log(keepId, vaultId)
           await keepsService.addKeepToVault(keepId, vaultId)
+          await keepsService.getVaultsAlreadyIn(keepId)
+          await keepsService.getKeepById(keepId)
           Pop.toast('Keep added', 'success')
         } catch (error) {
           logger.error(error)
@@ -230,5 +254,11 @@ export default {
   width: 2vw;
   border-radius: 50%;
   object-fit: cover;
+}
+.deletebtn {
+  color: #858585;
+}
+.deletebtn:hover {
+  color: #e60023;
 }
 </style>

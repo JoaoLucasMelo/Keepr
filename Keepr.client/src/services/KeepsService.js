@@ -46,5 +46,21 @@ async querySearch(input){
   let newQuery = res.data
   AppState.keeps = newQuery
 }
+
+async getVaultsAlreadyIn(keepId){
+  let vaultsAlreadyIn = []
+  for (let i = 0; i < AppState.myVaults.length; i++) {
+    let keepsFound = []
+    let keeps = []
+    const res = await api.get("api/vaults/" + AppState.myVaults[i].id + "/keeps")
+    keeps = res.data
+    keepsFound = keeps.filter( k => k.id === keepId)
+    if(keepsFound.length >= 1){
+      vaultsAlreadyIn.push(AppState.myVaults[i])
+    }
+  }
+  AppState.vaultsAlreadyIn = vaultsAlreadyIn
+  logger.log(AppState.vaultsAlreadyIn)
+}
 }
 export const keepsService = new KeepsService()

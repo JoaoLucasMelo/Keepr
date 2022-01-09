@@ -9,9 +9,10 @@
         </div>
         <div class="align-self-center">
           <button
+            title="Delete this Vault"
             v-if="account.id === vault.creatorId"
             @click="removeVault(vault.id, vault.creatorId)"
-            class="btn btn-outline-secondary"
+            class="btn font deletevault border border-2 p-2"
           >
             Delete Vault
           </button>
@@ -91,6 +92,7 @@ export default {
 .vaultdescription {
   font-size: 3vh;
   color: rgb(134, 134, 134);
+  border: #e60023;
 }
 .keeps {
   margin-top: 2vh !important;
@@ -106,5 +108,13 @@ export default {
   display: inline-block;
   margin: 0 0 1em;
   width: 100%;
+}
+.deletevault {
+  color: #e60023;
+  border-color: #e60023 !important;
+}
+.deletevault:hover {
+  background-color: #e60023;
+  color: rgb(238, 238, 238);
 }
 </style>

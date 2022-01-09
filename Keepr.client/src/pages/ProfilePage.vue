@@ -35,7 +35,8 @@
             v-if="account?.id === activeProfile.id && user.isAuthenticated"
             data-bs-toggle="modal"
             data-bs-target="#newVaultModal"
-            class="mdi plusbtn mdi-plus selectable"
+            class="mdi plusbtn mdi-plus action"
+            title="Add New Vault"
           ></i>
         </p>
       </div>
@@ -55,7 +56,8 @@
             v-if="account?.id === activeProfile.id && user.isAuthenticated"
             data-bs-toggle="modal"
             data-bs-target="#newKeepModal"
-            class="mdi selectable plusbtn mdi-plus"
+            class="mdi action plusbtn mdi-plus"
+            title="Add New Keep"
           ></i>
         </p>
       </div>
@@ -71,7 +73,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
@@ -91,7 +93,7 @@ export default {
         Pop.toast(error.message, 'error')
       }
     })
-    onMounted(async () => {
+    watchEffect(async () => {
       try {
         await profileService.getVaults(route.params.id)
       } catch (error) {
@@ -151,6 +153,10 @@ export default {
 }
 .plusbtn {
   color: #e60023;
+  transition: all 0.2s ease-in-out;
+}
+.plusbtn:hover {
+  transform: scale(1.05);
 }
 .masonry {
   column-count: 4;

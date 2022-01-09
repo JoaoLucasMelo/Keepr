@@ -27,7 +27,7 @@
           <div v-else></div>
           <div
             class="d-flex w-100 justify-content-between"
-            :title="'Got to ' + keep.creator.name + `'s Profile`"
+            :title="'Go to ' + keep.creator.name + `'s Profile`"
           >
             <p class="card-text name font m-0">{{ keep.name }}</p>
             <button @click.stop="profile(keep.creatorId)" class="btn p-0">
@@ -72,6 +72,7 @@ export default {
       },
       async keepModal(id) {
         try {
+          await keepsService.getVaultsAlreadyIn(props.keep.id)
           await keepsService.getKeepById(props.keep.id)
           Modal.getOrCreateInstance(document.getElementById('a' + id + 'a')).toggle()
         } catch (error) {
