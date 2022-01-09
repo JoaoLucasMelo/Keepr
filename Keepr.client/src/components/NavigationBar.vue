@@ -115,7 +115,7 @@ export default {
 }
 .logo {
   margin-left: 6vw;
-  height: 3.5vh;
+  height: 4.2vh;
 }
 
 .searchBar {
