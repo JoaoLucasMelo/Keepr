@@ -10,16 +10,19 @@ async getVault(id){
 
 async createVault(newVault){
   const res = await api.post("api/vaults", newVault)
-  logger.log('NEW VAULT',res.data)
   AppState.activeProfVaults.push(res.data)
   AppState.myVaults.push(res.data)
 }
 
 async removeVault(id){
   const res = await api.delete("api/vaults/" + id)
-  logger.log(res.data)
   let newVaults = AppState.activeProfVaults?.filter( v => v.id !== id)
   AppState.activeProfVaults = newVaults
+}
+
+async editVault(id, input){
+  const res = await api.put("api/vaults/" + id, input)
+  AppState.activeVault = res.data
 }
 }
 export const vaultsService = new VaultsService()

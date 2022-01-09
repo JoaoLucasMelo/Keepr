@@ -154,7 +154,7 @@ export default {
       },
       async editVault() {
         try {
-          await vaultsService.editVault(editable.value)
+          await vaultsService.editVault(this.vault.id, editable.value)
           edit.value = !edit.value
           editable.value = {}
         } catch (error) {

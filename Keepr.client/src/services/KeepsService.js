@@ -10,7 +10,6 @@ async getAll(){
 async getByVaultKeeps(vaultId){
   const res = await api.get("api/vaults/" + vaultId + "/keeps")
   AppState.activeVaultKeeps = res.data
-  logger.log('VAULT KEEPS',AppState.activeVaultKeeps)
 }
 async getKeepById(id){
   const res = await api.get("api/keeps/" + id)
