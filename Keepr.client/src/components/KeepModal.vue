@@ -40,9 +40,11 @@
                       </p>
                     </div>
                   </div>
-                  <div class="row text-center">
+                  <div class="row text-center d-flex justify-content-center">
                     <p class="keepname font m-0">{{ keep.name }}</p>
-                    <p class="keepdesc font">{{ keep.description }}</p>
+                    <p class="keepdesc font text-wrap">
+                      {{ keep.description }}
+                    </p>
                   </div>
                 </div>
                 <div>
@@ -183,7 +185,6 @@ export default {
       },
       async addKeepToVault(keepId, vaultId) {
         try {
-          logger.log(keepId, vaultId)
           await keepsService.addKeepToVault(keepId, vaultId)
           await keepsService.getVaultsAlreadyIn(keepId)
           AppState.activeKeep.keeps++
@@ -232,6 +233,7 @@ export default {
   font-size: 3vh;
   color: rgb(42, 42, 42);
   padding-top: 5vh;
+  overflow-wrap: break-word;
 }
 .line {
   margin: 5px;

@@ -52,6 +52,7 @@
                   id="KeepDescription"
                   placeholder="Description..."
                   required
+                  maxlength="200"
                   v-model="newKeep.description"
                 />
               </div>
