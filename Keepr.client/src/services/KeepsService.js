@@ -33,7 +33,6 @@ async addKeepToVault(keepId, vaultId){
   await api.post("api/vaultkeeps", { keepId: keepId, vaultId: vaultId})
 }
 async removeKeepFromVault(id){
-  logger.log(id)
   const res = await api.delete("api/vaultkeeps/" + id)
   let newVK = AppState.activeVaultKeeps.filter( k => k.vaultKeepId !== id)
   AppState.activeVaultKeeps = newVK

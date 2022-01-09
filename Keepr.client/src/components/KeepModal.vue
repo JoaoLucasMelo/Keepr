@@ -334,8 +334,8 @@ export default {
   height: 63vh;
 }
 .profpic {
-  height: 2vw;
-  width: 2vw;
+  height: 3vw;
+  width: 3vw;
   border-radius: 50%;
   object-fit: cover;
 }
