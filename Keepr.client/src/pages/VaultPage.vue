@@ -119,16 +119,18 @@ export default {
       try {
         await keepsService.getByVaultKeeps(route.params.id)
       } catch (error) {
-        logger.error(error)
-        Pop.toast(error.message, 'error')
+        // logger.error(error)
+        router.push({ name: 'Home' })
+        Pop.toast('This is a Private Vault', 'info')
       }
     })
     onMounted(async () => {
       try {
         await vaultsService.getVault(route.params.id)
       } catch (error) {
-        logger.error(error)
-        Pop.toast(error.message, 'error')
+        // logger.error(error)
+        router.push({ name: 'Home' })
+        Pop.toast('This is a Private Vault', 'info')
       }
     })
     let edit = ref(false)
