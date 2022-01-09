@@ -41,7 +41,7 @@
           title="Go to Profile"
           @click="profile()"
         >
-          <div class="me-3">
+          <div class="me-3 desktop">
             <p class="font m-0">{{ account.name }}</p>
           </div>
           <div class="me-4">
@@ -152,9 +152,25 @@ export default {
   background: #e2e2e2;
 }
 .profpic {
-  height: 2.3vw;
-  width: 2.3vw;
+  height: 4.5vh;
+  width: 4.5vh;
   border-radius: 50%;
   object-fit: cover;
+}
+.desktop {
+  display: block;
+}
+@media only screen and (max-width: 500px) {
+  .desktop {
+    display: none;
+  }
+  .logo {
+    margin-left: 6vw;
+    height: 4.2vh;
+  }
+  .profpic {
+    height: 4.5vh;
+    width: 4.5vh;
+  }
 }
 </style>

@@ -1,19 +1,27 @@
 <template>
   <div class="Profile">
     <div class="row justify-content-center">
-      <div class="col-md-10 margintop d-md-flex justify-content-between">
+      <div
+        class="
+          col-md-10
+          margintop
+          d-flex
+          justified
+          justify-content-md-between justify-content-center
+        "
+      >
         <div
           class="d-md-flex"
           v-if="account.id === activeProfile.id && edit === false"
         >
-          <div>
+          <div class="justified">
             <img
               class="profpic elevation-5"
               :src="activeProfile.picture"
               alt=""
             />
           </div>
-          <div>
+          <div class="justified">
             <div class="d-flex">
               <p class="font m-0 username">{{ activeProfile.name }}</p>
               <i
@@ -47,11 +55,11 @@
               />
             </div>
             <div class="mb-3">
-              <label for="ProfileName" class="form-label">ImgUrl:</label>
+              <label for="ProfileImg" class="form-label">ImgUrl:</label>
               <input
                 type="url"
                 class="form-control"
-                id="ProfileName"
+                id="ProfileImg"
                 placeholder="ImgUrl..."
                 v-model="editable.picture"
               />
@@ -63,14 +71,14 @@
           </form>
         </div>
         <div class="d-md-flex" v-if="account.id !== activeProfile.id">
-          <div>
+          <div class="justified">
             <img
               class="profpic elevation-5"
               :src="activeProfile.picture"
               alt=""
             />
           </div>
-          <div>
+          <div class="justified">
             <p class="font m-0 username">{{ activeProfile.name }}</p>
             <p class="font mt-2 m-0 vaultskeeps">
               Vaults: {{ activeProfVaults.length }}
@@ -80,15 +88,21 @@
             </p>
           </div>
         </div>
-        <div v-if="user.isAuthenticated && account?.id === activeProfile.id">
-          <button @click="logout" class="btn btn-outline-danger font">
+        <div
+          v-if="
+            user.isAuthenticated &&
+            account?.id === activeProfile.id &&
+            edit === false
+          "
+        >
+          <button @click="logout" class="btn btn-outline-danger font logout">
             Logout
           </button>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="font vaults">
+      <div class="font vaults justified">
         <p>
           Vaults
           <i
@@ -101,7 +115,7 @@
         </p>
       </div>
       <div
-        class="col-2 d-flex justify-content-center p-2"
+        class="col-4 col-md-2 d-flex justify-content-center p-2"
         v-for="v in activeProfVaults"
         :key="v.id"
       >
@@ -109,7 +123,7 @@
       </div>
     </div>
     <div class="row mb-5">
-      <div class="font vaults">
+      <div class="font vaults justified">
         <p>
           Keeps
           <i
@@ -244,5 +258,29 @@ export default {
 }
 .inputs {
   width: 35vw;
+}
+@media only screen and (max-width: 500px) {
+  .justified {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+  }
+  .inputs {
+    width: 35vh;
+  }
+  .logout {
+    margin-top: 3vh;
+  }
+  .vaults {
+    margin-top: 2vh;
+  }
+  .masonry {
+    column-count: 2;
+    column-gap: 1em;
+  }
+
+  .item {
+    margin: 0 0 0.5em;
+  }
 }
 </style>

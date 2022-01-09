@@ -64,4 +64,13 @@ export default {
   width: 12vw;
   object-fit: cover;
 }
+@media only screen and (max-width: 500px) {
+  .image {
+    width: 13vh;
+    height: 15vh;
+  }
+  .name {
+    font-size: 1.5vh;
+  }
+}
 </style>

@@ -114,4 +114,13 @@ export default {
   border-radius: 50%;
   object-fit: cover;
 }
+@media only screen and (max-width: 500px) {
+  .name {
+    font-size: 2vh;
+  }
+  .profpic {
+    height: 3vh;
+    width: 3vh;
+  }
+}
 </style>

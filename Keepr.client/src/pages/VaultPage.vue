@@ -2,11 +2,11 @@
   <div class="VaultPage">
     <div class="row justify-content-center">
       <div
-        class="col-10 d-flex justify-content-between"
+        class="col-10 d-flex justified justify-content-between"
         v-if="account.id === vault.creatorId && edit === false"
       >
-        <div>
-          <div class="d-flex align-">
+        <div class="justified">
+          <div class="d-flex">
             <p class="font vaultname m-0">{{ vault.name }}</p>
             <i
               @click="edit = !edit"
@@ -190,7 +190,7 @@ export default {
   font-size: 2vh;
 }
 .masonry {
-  column-count: 4 !important;
+  column-count: 4;
   column-gap: 2em;
 }
 
@@ -209,5 +209,26 @@ export default {
 }
 .inputs {
   width: 35vw;
+}
+@media only screen and (max-width: 500px) {
+  .inputs {
+    width: 35vh;
+  }
+  .masonry {
+    column-count: 2;
+    column-gap: 1em;
+  }
+
+  .item {
+    margin: 0 0 0.5em;
+  }
+  .justified {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+  }
+  .deletevault {
+    margin-top: 2.5vh;
+  }
 }
 </style>

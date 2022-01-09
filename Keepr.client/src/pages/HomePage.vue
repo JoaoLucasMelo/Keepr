@@ -47,4 +47,15 @@ export default {
   margin: 0 0 1em;
   width: 100%;
 }
+@media only screen and (max-width: 500px) {
+  .masonry {
+    column-count: 2;
+    column-gap: 1em;
+  }
+  .item {
+    display: inline-block;
+    margin: 0 0 0.5em;
+    width: 100%;
+  }
+}
 </style>
