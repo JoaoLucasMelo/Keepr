@@ -7,15 +7,27 @@
           class="
             card-img-overlay
             d-flex
-            align-items-end
+            flex-column
             justify-content-between
             w-100
           "
         >
-          <p class="card-text name font m-0">{{ keep.name }}</p>
-          <button @click.stop="profile(keep.creatorId)" class="btn p-0">
-            <img class="profpic" :src="keep.creator.picture" alt="" />
-          </button>
+          <div class="text-end" v-if="route.name === 'Vault'">
+            <button
+              @click.stop="removeKeepFromVault(keep.vaultKeepId)"
+              title="Remove from this Vault"
+              class="btn font p-0"
+            >
+              <i class="mdi mdi-close text-danger mdi-24px"></i>
+            </button>
+          </div>
+          <div v-else></div>
+          <div class="d-flex w-100 justify-content-between">
+            <p class="card-text name font m-0">{{ keep.name }}</p>
+            <button @click.stop="profile(keep.creatorId)" class="btn p-0">
+              <img class="profpic" :src="keep.creator.picture" alt="" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -38,7 +50,9 @@ export default {
   },
   setup(props) {
     const router = useRouter()
+    const route = useRoute()
     return {
+      route,
       router,
       img: computed(() => props.keep.img),
       async profile(id) {
@@ -54,6 +68,17 @@ export default {
         try {
           await keepsService.getKeepById(props.keep.id)
           Modal.getOrCreateInstance(document.getElementById('a' + id + 'a')).toggle()
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      },
+      async removeKeepFromVault(id) {
+        try {
+          if (await Pop.confirm()) {
+            await keepsService.removeKeepFromVault(id)
+            Pop.toast('Keep removed from this Vault', 'success')
+          }
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

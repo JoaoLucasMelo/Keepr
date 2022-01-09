@@ -25,6 +25,7 @@
         <p>
           Vaults
           <i
+            v-if="account?.id === activeProfile.id && user.isAuthenticated"
             data-bs-toggle="modal"
             data-bs-target="#newVaultModal"
             class="mdi plusbtn mdi-plus selectable"
@@ -44,6 +45,7 @@
         <p>
           Keeps
           <i
+            v-if="account?.id === activeProfile.id && user.isAuthenticated"
             data-bs-toggle="modal"
             data-bs-target="#newKeepModal"
             class="mdi selectable plusbtn mdi-plus"
@@ -102,6 +104,8 @@ export default {
       activeProfile: computed(() => AppState.activeProfile),
       activeProfVaults: computed(() => AppState.activeProfVaults),
       activeProfKeeps: computed(() => AppState.activeProfKeeps),
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
 
     }
   }

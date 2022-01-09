@@ -97,7 +97,7 @@ export default {
   font-size: 2vh;
 }
 .masonry {
-  column-count: 4;
+  column-count: 4 !important;
   column-gap: 2em;
 }
 
