@@ -60,5 +60,10 @@ async getVaultsAlreadyIn(keepId){
   }
   AppState.vaultsAlreadyIn = vaultsAlreadyIn
 }
+
+async editKeep(id, input){
+  const res = await api.put("api/keeps/" + id, input)
+  AppState.activeKeep = res.data
+}
 }
 export const keepsService = new KeepsService()

@@ -47,7 +47,7 @@
                     <div
                       class="d-flex align-items-center justify-content-center"
                     >
-                      <p class="keepname font m-0">{{ keep.name }}</p>
+                      <p class="keepname font m-0">{{ activeKeep.name }}</p>
                       <i
                         @click="edit = !edit"
                         title="Edit Keep"
@@ -61,14 +61,14 @@
                       ></i>
                     </div>
                     <p class="keepdesc font text-wrap">
-                      {{ keep.description }}
+                      {{ activeKeep.description }}
                     </p>
                   </div>
                   <div
                     class="row font d-flex justify-content-center"
                     v-if="account.id === keep.creatorId && edit === true"
                   >
-                    <form>
+                    <form @submit.prevent="editKeep">
                       <div class="mb-3">
                         <label for="KeepName" class="form-label"
                           >Keep Name:</label
@@ -79,7 +79,6 @@
                           id="KeepName"
                           placeholder="Keep Name..."
                           maxlength="15"
-                          required
                           v-model="editable.name"
                         />
                       </div>
@@ -92,7 +91,6 @@
                           class="form-control"
                           id="KeepDescription"
                           placeholder="Description..."
-                          required
                           maxlength="200"
                           v-model="editable.description"
                         />
@@ -101,7 +99,9 @@
                         <button @click="edit = !edit" class="btn me-2">
                           Cancel
                         </button>
-                        <button class="btn btn-outline-danger">Save</button>
+                        <button type="submit" class="btn btn-outline-danger">
+                          Save
+                        </button>
                       </div>
                     </form>
                   </div>
@@ -268,7 +268,7 @@ export default {
       },
       async editKeep() {
         try {
-          await keepsService.editKeep(editable.value)
+          await keepsService.editKeep(this.activeKeep.id, editable.value)
           edit.value = !edit.value
           editable.value = {}
         } catch (error) {
