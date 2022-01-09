@@ -85,3 +85,12 @@ ADD COLUMN imgUrl VARCHAR(5000) DEFAULT "https://images.unsplash.com/photo-15174
       JOIN vaultkeeps vk ON vk.vaultId = 9 AND vk.keepId = k.id
       WHERE vk.vaultId = 9
       ;
+
+
+      SELECT
+      k.*,
+      a.*
+      FROM
+      keeps k
+      JOIN accounts a ON k.creatorId = a.id AND k.name LIKE "%name%"
+      ;

@@ -38,6 +38,7 @@ import { AppState } from "../AppState"
 export default {
   name: 'Vault',
   setup() {
+    document.title = "Keepr | Vault"
     const route = useRoute()
     const router = useRouter()
     onMounted(async () => {

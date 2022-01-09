@@ -1,7 +1,10 @@
 <template>
   <div class="Keep">
     <div>
-      <div @click="keepModal(keep.id)" class="card border-0 selectable">
+      <div
+        @click="keepModal(keep.id)"
+        class="card carddiv border-0 grow selectable"
+      >
         <img class="card-img image" :src="keep.img" alt="" />
         <div
           class="
@@ -91,6 +94,9 @@ export default {
 
 
 <style lang="scss" scoped>
+.carddiv {
+  border-radius: 50px;
+}
 .image {
   border-radius: 50px;
 }

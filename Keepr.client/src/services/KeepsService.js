@@ -40,5 +40,11 @@ async removeKeepFromVault(id){
   let newVK = AppState.activeVaultKeeps.filter( k => k.vaultKeepId !== id)
   AppState.activeVaultKeeps = newVK
 }
+
+async querySearch(input){
+  const res = await api.get("api/Query?search=%"+ input +"%")
+  let newQuery = res.data
+  AppState.keeps = newQuery
+}
 }
 export const keepsService = new KeepsService()

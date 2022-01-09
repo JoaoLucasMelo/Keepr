@@ -1,22 +1,29 @@
 <template>
   <div class="Profile">
     <div class="row justify-content-center">
-      <div class="col-md-10 margintop d-md-flex">
-        <div>
-          <img
-            class="profpic elevation-5"
-            :src="activeProfile.picture"
-            alt=""
-          />
+      <div class="col-md-10 margintop d-md-flex justify-content-between">
+        <div class="d-md-flex">
+          <div>
+            <img
+              class="profpic elevation-5"
+              :src="activeProfile.picture"
+              alt=""
+            />
+          </div>
+          <div>
+            <p class="font m-0 username">{{ activeProfile.name }}</p>
+            <p class="font mt-2 m-0 vaultskeeps">
+              Vaults: {{ activeProfVaults.length }}
+            </p>
+            <p class="font m-0 vaultskeeps">
+              Keeps: {{ activeProfKeeps.length }}
+            </p>
+          </div>
         </div>
-        <div>
-          <p class="font m-0 username">{{ activeProfile.name }}</p>
-          <p class="font mt-2 m-0 vaultskeeps">
-            Vaults: {{ activeProfVaults.length }}
-          </p>
-          <p class="font m-0 vaultskeeps">
-            Keeps: {{ activeProfKeeps.length }}
-          </p>
+        <div v-if="user.isAuthenticated && account?.id === activeProfile.id">
+          <button @click="logout" class="btn btn-outline-danger font">
+            Logout
+          </button>
         </div>
       </div>
     </div>
@@ -70,9 +77,11 @@ import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
 import { useRoute } from "vue-router"
 import { profileService } from "../services/ProfileService"
+import { AuthService } from "../services/AuthService"
 export default {
   name: 'Profile',
   setup() {
+    document.title = "Keepr | Profile"
     const route = useRoute()
     onMounted(async () => {
       try {
@@ -106,7 +115,9 @@ export default {
       activeProfKeeps: computed(() => AppState.activeProfKeeps),
       account: computed(() => AppState.account),
       user: computed(() => AppState.user),
-
+      async logout() {
+        AuthService.logout({ returnTo: window.location.origin })
+      },
     }
   }
 }

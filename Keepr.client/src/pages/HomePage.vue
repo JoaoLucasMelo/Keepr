@@ -16,6 +16,7 @@ import { accountService } from "../services/AccountService"
 export default {
   name: 'Home',
   setup() {
+    document.title = "Keepr | Home"
     onMounted(async () => {
       try {
         await keepsService.getAll()

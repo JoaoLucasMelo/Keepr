@@ -34,6 +34,11 @@ namespace Keepr.Services
       return found;
     }
 
+    internal List<Keep> Search(string search)
+    {
+      return _repo.Search(search);
+    }
+
     internal Keep Edit(Keep update, string id)
     {
       Keep oldKeep = GetById(update.Id);

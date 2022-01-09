@@ -1,8 +1,8 @@
 <template>
   <header class="container-fluid">
-    <NavigationBar class="row fixed-top" />
+    <NavigationBar class="row p-0 fixed-top" />
   </header>
-  <main class="container-fluid back">
+  <main class="container-fluid back scrollbar">
     <div class="row">
       <router-view />
     </div>
@@ -30,5 +30,31 @@ export default {
 }
 .back {
   background-color: white;
+}
+.scrollbar {
+  overflow-y: scroll;
+  height: 100vh;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #e60023;
+  border-radius: 10px;
+}
+.grow {
+  box-shadow: 4px 2px 2px rgb(104, 104, 104);
+  transition: all 0.2s ease-in-out;
+}
+.grow:hover {
+  transform: scale(1.01);
+  box-shadow: 6px 4px 4px rgb(104, 104, 104);
+}
+.btn:focus {
+  outline: none;
+  box-shadow: none;
 }
 </style>

@@ -48,6 +48,23 @@ namespace Keepr.Repositories
       }, new { id }).FirstOrDefault();
     }
 
+    internal List<Keep> Search(string search)
+    {
+      string sql = @"
+      SELECT
+      k.*,
+      a.*
+      FROM
+      keeps k
+      JOIN accounts a ON k.creatorId = a.id AND k.name LIKE @search
+      ;";
+      return _db.Query<Keep, Account, Keep>(sql, (keep, acct) =>
+              {
+                keep.Creator = acct;
+                return keep;
+              }, new { search }, splitOn: "id").ToList();
+    }
+
     internal void AddKeep(int id)
     {
       string sql = @"
