@@ -10,12 +10,12 @@
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-body row modalcard m-0">
-            <div class="col-6 backpic p-0"></div>
-            <div class="col-6">
+            <div class="col-md-6 backpic p-0"></div>
+            <div class="col-md-6">
               <div class="text-end">
                 <button
                   type="button"
-                  class="btn-close me-4 mt-4"
+                  class="btn-close me-4 mt-md-4"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
@@ -344,5 +344,33 @@ export default {
 }
 .deletebtn:hover {
   color: #e60023;
+}
+@media only screen and (max-width: 500px) {
+  .backpic {
+    background-image: v-bind(imgUrl);
+    background-size: cover !important;
+    border-top-right-radius: 60px;
+    border-top-left-radius: 60px;
+    border-bottom-left-radius: 0;
+    height: 40vh;
+  }
+  .modalcard {
+    background-color: white;
+    height: 90vh;
+    border-radius: 60px;
+  }
+  .keepname {
+    font-size: 3vh;
+    color: rgb(42, 42, 42);
+  }
+  .keepdesc {
+    font-size: 2vh;
+    color: rgb(42, 42, 42);
+    padding-top: 2vh;
+    overflow-wrap: break-word;
+  }
+  .heigth {
+    height: 10vh;
+  }
 }
 </style>

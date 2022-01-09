@@ -49,8 +49,10 @@
           </div>
         </div>
       </div>
-      <div v-else class="me-5">
-        <button @click="login" class="btn btn-danger font">Login</button>
+      <div v-else class="me-md-5 me-4">
+        <button @click="login" class="btn btn-danger font loginbtn">
+          Login
+        </button>
       </div>
     </div>
   </div>
@@ -165,12 +167,27 @@ export default {
     display: none;
   }
   .logo {
-    margin-left: 6vw;
+    margin-left: 2vh;
     height: 4.2vh;
   }
   .profpic {
     height: 4.5vh;
     width: 4.5vh;
+  }
+  .loginbtn {
+    margin-left: 0.5vh;
+    padding: 0.5vh;
+    font-size: 1.5vh;
+  }
+  .searchBar {
+    width: 30vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .justified {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>
