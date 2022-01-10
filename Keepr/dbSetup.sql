@@ -94,3 +94,5 @@ ADD COLUMN imgUrl VARCHAR(5000) DEFAULT "https://images.unsplash.com/photo-15174
       keeps k
       JOIN accounts a ON k.creatorId = a.id AND k.name LIKE "%name%"
       ;
+
+      DELETE FROM vaults WHERE name LIKE "%test%";

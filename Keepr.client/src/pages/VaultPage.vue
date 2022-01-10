@@ -114,7 +114,7 @@
     </div>
     <div class="masonry mt-5">
       <div class="item" v-for="k in vaultkeeps" :key="k.id">
-        <Keep :keep="k" />
+        <Keep :keep="k" :vault="vault" />
       </div>
     </div>
   </div>

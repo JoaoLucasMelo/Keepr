@@ -15,7 +15,14 @@
             w-100
           "
         >
-          <div class="text-end" v-if="route.name === 'Vault'">
+          <div
+            class="text-end"
+            v-if="
+              route.name === 'Vault' &&
+              user.isAuthenticated &&
+              vault.creatorId === account?.id
+            "
+          >
             <button
               @click.stop="removeKeepFromVault(keep.vaultKeepId)"
               title="Remove from this Vault"
@@ -50,9 +57,11 @@ import Pop from "../utils/Pop"
 import { useRoute, useRouter } from "vue-router"
 import { Modal } from "bootstrap"
 import { keepsService } from "../services/KeepsService"
+import { AppState } from "../AppState"
 export default {
   props: {
-    keep: { type: Object, required: true }
+    keep: { type: Object, required: true },
+    vault: { type: Object },
   },
   setup(props) {
     const router = useRouter()
@@ -61,6 +70,8 @@ export default {
       route,
       router,
       img: computed(() => props.keep.img),
+      user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
       async profile(id) {
         try {
           await profileService.getProfile(id)
