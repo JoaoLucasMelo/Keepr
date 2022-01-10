@@ -20,7 +20,7 @@
           </div>
           <div class="modal-body font">
             <form>
-              <div class="mb-3">
+              <div>
                 <label for="KeepName" class="form-label">Keep Name:</label>
                 <input
                   type="text"
@@ -31,6 +31,14 @@
                   required
                   v-model="newKeep.name"
                 />
+                <div class="text-end me-2">
+                  <i
+                    ><small>
+                      {{ newKeep.name?.length ? newKeep.name.length : 0 }}
+                      /15</small
+                    ></i
+                  >
+                </div>
               </div>
               <div class="mb-3">
                 <label for="KeepImg" class="form-label">Image:</label>
@@ -42,7 +50,7 @@
                   v-model="newKeep.img"
                 />
               </div>
-              <div class="mb-3">
+              <div>
                 <label for="KeepDescription" class="form-label"
                   >Description:</label
                 >
@@ -55,6 +63,18 @@
                   maxlength="200"
                   v-model="newKeep.description"
                 />
+                <div class="text-end me-2">
+                  <i
+                    ><small>
+                      {{
+                        newKeep.description?.length
+                          ? newKeep.description.length
+                          : 0
+                      }}
+                      /200</small
+                    ></i
+                  >
+                </div>
               </div>
             </form>
           </div>

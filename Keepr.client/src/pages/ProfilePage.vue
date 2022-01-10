@@ -43,7 +43,7 @@
           v-if="account.id === activeProfile.id && edit === true"
         >
           <form class="inputs font" @submit.prevent="editProfile">
-            <div class="mb-3">
+            <div>
               <label for="ProfileName" class="form-label">Name:</label>
               <input
                 type="text"
@@ -53,6 +53,14 @@
                 maxlength="15"
                 v-model="editable.name"
               />
+              <div class="text-end me-2">
+                <i
+                  ><small>
+                    {{ editable.name?.length ? editable.name.length : 0 }}
+                    /15</small
+                  ></i
+                >
+              </div>
             </div>
             <div class="mb-3">
               <label for="ProfileImg" class="form-label">ImgUrl:</label>

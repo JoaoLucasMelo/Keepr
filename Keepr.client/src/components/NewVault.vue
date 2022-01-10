@@ -20,7 +20,7 @@
           </div>
           <div class="modal-body font">
             <form>
-              <div class="mb-3">
+              <div>
                 <label for="VaultName" class="form-label">Vault Name:</label>
                 <input
                   type="text"
@@ -31,8 +31,16 @@
                   required
                   v-model="newVault.name"
                 />
+                <div class="text-end me-2">
+                  <i
+                    ><small>
+                      {{ newVault.name?.length ? newVault.name.length : 0 }}
+                      /20</small
+                    ></i
+                  >
+                </div>
               </div>
-              <div class="mb-3">
+              <div>
                 <label for="VaultDescription" class="form-label"
                   >Vault Description:</label
                 >
@@ -45,8 +53,20 @@
                   required
                   v-model="newVault.description"
                 />
+                <div class="text-end me-2">
+                  <i
+                    ><small>
+                      {{
+                        newVault.description?.length
+                          ? newVault.description.length
+                          : 0
+                      }}
+                      /50</small
+                    ></i
+                  >
+                </div>
               </div>
-              <div class="mb-3">
+              <div class="mb-4">
                 <label for="VaultImg" class="form-label"
                   >Vault Background Image:
                   <i class="text-secondary"

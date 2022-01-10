@@ -41,7 +41,7 @@
         v-if="account.id === vault.creatorId && edit === true"
       >
         <form class="inputs font" @submit.prevent="editVault">
-          <div class="mb-3">
+          <div>
             <label for="VaultName" class="form-label">Vault Name:</label>
             <input
               type="text"
@@ -51,8 +51,16 @@
               maxlength="15"
               v-model="editable.name"
             />
+            <div class="text-end me-2">
+              <i
+                ><small>
+                  {{ editable.name?.length ? editable.name.length : 0 }}
+                  /15</small
+                ></i
+              >
+            </div>
           </div>
-          <div class="mb-3">
+          <div>
             <label for="VaultDescription" class="form-label"
               >Vault Description:</label
             >
@@ -64,6 +72,18 @@
               maxlength="200"
               v-model="editable.description"
             />
+            <div class="text-end me-2">
+              <i
+                ><small>
+                  {{
+                    editable.description?.length
+                      ? editable.description.length
+                      : 0
+                  }}
+                  /200</small
+                ></i
+              >
+            </div>
           </div>
           <div class="text-center mt-2">
             <button @click="edit = !edit" class="btn me-2">Cancel</button>
