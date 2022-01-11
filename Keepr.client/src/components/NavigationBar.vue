@@ -98,6 +98,7 @@ export default {
       async querySearch() {
         try {
           await keepsService.querySearch(userInput.value)
+          // router.push({ name: 'Query', params: { input: userInput.value } })
           userInput.value = ("")
         } catch (error) {
           logger.error(error)

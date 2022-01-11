@@ -11,6 +11,11 @@ const routes = [
     name: 'Home',
     component: loadPage('HomePage')
   },
+  // {
+  //   path: '/Query?search=:input',
+  //   name: 'Query',
+  //   component: loadPage('HomePage')
+  // },
   {
     path: '/about',
     name: 'About',
