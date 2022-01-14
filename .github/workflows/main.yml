@@ -23,7 +23,7 @@ jobs:
       - name: Set Env Vars
         uses: microsoft/variable-substitution@v1
         with:
-          files: './Keepr/appsettings.json'
+          files: '../Keepr/appsettings.json'
         env:
           CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
